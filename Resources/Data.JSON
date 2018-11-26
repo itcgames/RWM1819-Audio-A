@@ -1,0 +1,15 @@
+{
+  "Images":
+  {
+      "RAPSONGIMG": "./Resources/Images/SugarHillGang.jpg",
+      "ROCKSONGIMG": "./Resources/Images/RedHotChilliPeppers.jpg",
+      "REGGAESONGIMG": "./Resources/Images/BobMarley.jpg"
+  },
+  "Audio":
+  {
+      "RAPSONGAUDIO": "./Resources/Audio/Music/RappersDelight.mp3",
+      "ROCKSONGAUDIO": "./Resources/Audio/Music/DaniCalifornia.mp3",
+      "REGGAESONGAUDIO": "./Resources/Audio/Music/Jamming.mp3"
+  }
+
+}
