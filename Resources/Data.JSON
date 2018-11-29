@@ -3,7 +3,8 @@
   {
       "RAPSONGIMG": "./Resources/Images/SugarHillGang.jpg",
       "ROCKSONGIMG": "./Resources/Images/RedHotChilliPeppers.jpg",
-      "REGGAESONGIMG": "./Resources/Images/BobMarley.jpg"
+      "REGGAESONGIMG": "./Resources/Images/BobMarley.jpg",
+      "VOLUMEICON": "./Resources/Images/VolumeIcon.png"
   },
   "Audio":
   {

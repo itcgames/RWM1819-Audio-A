@@ -1,6 +1,6 @@
 class Slider
 {
-  constructor(id, width, height, posX, posY)
+  constructor(id, width, height, posX, posY, backgroung)
   {
     var slider = document.createElement("INPUT");
     slider.setAttribute("type", "range");
@@ -12,6 +12,7 @@ class Slider
     slider.style.top = posY + 'px';
     slider.style.position='absolute';
     slider.id = id;
+    slider.background = background;
     slider.defaultValue = 50;
     document.body.appendChild(slider);
   }

@@ -47,8 +47,10 @@ class Game
     gameNamespace.stopButton = new Button("stop", 450,400, "STOP",100,100, "red");
     document.getElementById("stop").addEventListener("click", function(){gameNamespace.stopButton.clicked("stop",gameNamespace.currentlySelectedSound);});
     //Slider id, width, height, posX, posY
-    gameNamespace.volumeSlider = new Slider("volume", 250,50,300,550);
+    gameNamespace.volumeSlider = new Slider("volume", 250,50,300,550,"<img src=" + gameNamespace.game.myAssets.data["Images"]["VOLUMEICON"] + ">" );
     document.getElementById("volume").addEventListener("click", function(){gameNamespace.volumeSlider.changed("volume");});
+
+
 
     gameNamespace.game.update();
   }
@@ -60,7 +62,6 @@ class Game
  {
    //draws to screen
    gameNamespace.game.draw();
-   console.log(gameNamespace.volume);
    //recursively calls update of game : this method
    window.requestAnimationFrame(gameNamespace.game.update);
  }
