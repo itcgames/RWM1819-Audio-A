@@ -9,7 +9,8 @@ class AudioManager
 		this.gainNode = this.audioContext.createGain();
 		//stores value for previous volume
 		this.previousVol = 0.0;
-
+  }
+	
 	init()
 	{
 		try
