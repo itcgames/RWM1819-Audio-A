@@ -9,8 +9,10 @@ class AudioManager
 		this.gainNode = this.audioContext.createGain();
 		//stores value for previous volume
 		this.previousVol = 0.0;
-  }
-	
+		//if trying to play sound before loaded its added to queue
+		this.audioQueue = [];
+
+	}
 	init()
 	{
 		try
@@ -29,26 +31,29 @@ class AudioManager
   {
 		if(this.audioBuffers[name] == undefined)
 	  {
-	    console.log("Sound '"+name+"' doesn't exist or hasn't been loaded")
+	    console.log("Sound '"+name+"' doesn't exist or hasn't been loaded(adding to queue)")
+			this.audioQueue.push({name:name, loop:loop, volume:volume});
 	    return;
 	  }
-	  //retrieve the buffer we stored earlier
-	  var audioBuffer = this.audioBuffers[name];
+		else
+		{
+		  //retrieve the buffer we stored earlier
+		  var audioBuffer = this.audioBuffers[name];
 
-	  //create a buffer source - used to play once and then a new one must be made
-	  var source = this.audioContext.createBufferSource();
-		this.source = source;
-	  source.buffer = audioBuffer;
+		  //create a buffer source - used to play once and then a new one must be made
+		  var source = this.audioContext.createBufferSource();
+			this.source = source;
+		  source.buffer = audioBuffer;
 
-	  source.loop = isLoop;
+		  source.loop = loop;
 
-		//source.connect(this.audioContext.destination);
-		this.gainNode = this.audioContext.createGain();
-		source.connect(this.gainNode);
-	  this.gainNode.connect(this.audioContext.destination);
-		changeVolume(volume);
-	  source.start(0); // Play immediately.
-
+			//source.connect(this.audioContext.destination);
+			this.gainNode = this.audioContext.createGain();
+			source.connect(this.gainNode);
+		  this.gainNode.connect(this.audioContext.destination);
+			this.changeVolume(volume);
+		  source.start(0); // Play immediately.
+	  }
   }
 	changeVolume(volume)
 	{
@@ -98,23 +103,27 @@ class AudioManager
 	  var xhr = new XMLHttpRequest();
 	  xhr.open('GET', url, true);
 	  xhr.responseType = 'arraybuffer';
-
-	  xhr.onload = function(e) {
-
-	      //buffer containing sound returned by xhr
-	      var arrayBuffer=this.response;
-
-	      that.audioContext.decodeAudioData(arrayBuffer, function(buffer) {
-	      //associate the audio buffer with the sound name so can use the decoded audio later.
-	      that.audioBuffers[name]=buffer;
-
-	      }, function(e) {
-	      console.log('Error decoding file', e);
-	    });
-
-	  };
-
+		xhr.addEventListener("load", this.onLoad.bind(this, name, xhr));
 	  //send the xhr request to download the sound file
 	  xhr.send();
+	}
+	//when the sound buffer loads
+	onLoad(name,xhr,e)
+	{
+		var arrayBuffer = xhr.response;
+		this.audioContext.decodeAudioData(arrayBuffer, this.onDecode.bind(this, name));
+	}
+	//if the audio buffer is successfully decoded we can play sounds in queue
+	onDecode(name,audioBuffer)
+	{
+		this.audioBuffers[name] = audioBuffer;
+		for(var i = this.audioQueue.length-1; i>= 0; --i)
+		{
+			if (this.audioQueue[i].name === name)
+			{
+					this.playAudio(this.audioQueue[i].name, this.audioQueue[i].loop, this.audioQueue[i].volume);
+					this.audioQueue.splice(i, 1);
+			}
+		}
 	}
 }
