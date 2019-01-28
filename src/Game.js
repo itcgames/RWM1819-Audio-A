@@ -24,7 +24,6 @@ class Game
     //buttons
     this.playButton;
     //images
-    this.wed;
     this.playButtonImg =  new Image(50,50);
     this.playButtonImg.src = this.myAssets.data["Images"]["PLAYICON"];
     this.pauseButtonImg = new Image(50,50);
@@ -33,18 +32,27 @@ class Game
     this.stopButtonImg.src = this.myAssets.data["Images"]["STOPICON"];
     this.muteButtonImg = new Image(50,50);
     this.muteButtonImg.src = this.myAssets.data["Images"]["MUTEICON"];
+
+    this.sliderImg = new Image(50,50);
+    this.sliderImg.src = this.myAssets.data["Images"]["SLIDERICON"];
+    this.sliderValueImg = new Image(50,50);
+    this.sliderValueImg.src = this.myAssets.data["Images"]["VOLUMEICON"];
     //sounds
     this.audioManager.loadSoundFile("Rock", this.myAssets.data["Audio"]["ROCKSONGAUDIO"]);
     this.audioManager.loadSoundFile("Rap", this.myAssets.data["Audio"]["RAPSONGAUDIO"]);
     this.audioManager.loadSoundFile("Reggae", this.myAssets.data["Audio"]["REGGAESONGAUDIO"]);
     //GUI
     //Buttons img, id, posX, posY, width, height
+    /** @type {Array<Button>} */
     this.buttonArr = [];
-    this.buttonArr.push(new Button(this.playButtonImg, "PLAYBUTTON",100,700,50,50));
-    this.buttonArr.push(new Button(this.pauseButtonImg, "PAUSEBUTTON",300,700,50,50));
-    this.buttonArr.push(new Button(this.stopButtonImg, "STOPBUTTON",500,700,50,50));
-    this.buttonArr.push(new Button(this.muteButtonImg, "MUTEBUTTON",700,700,50,50));
-
+    this.buttonArr.push(new Button(this.playButtonImg,100,700,50,50));
+    this.buttonArr.push(new Button(this.pauseButtonImg,300,700,50,50));
+    this.buttonArr.push(new Button(this.stopButtonImg,500,700,50,50));
+    this.buttonArr.push(new Button(this.muteButtonImg,700,700,50,50));
+    //Sliders sliderImg, valueIconImg, id, posX, posY, width, height
+    /** @type {Array<Slider>} */
+    this.sliderArr = [];
+    this.sliderArr.push(new Slider(this.sliderImg, 100,500,300,30, this.sliderValueImg,225,500 -10,50,50));
 
     this.gameLoop();
   }
@@ -68,7 +76,11 @@ class Game
     this.buttonArr.forEach(button =>{
       button.update();
     });
+    this.sliderArr.forEach(slider =>{
+      slider.update();
+    });
     this.updateButtons();
+    this.updateSliders();
    
   }
 
@@ -80,7 +92,13 @@ class Game
     this.buttonArr.forEach(button =>{
       button.draw(this.ctx);
     });
+    this.sliderArr.forEach(slider =>{
+      slider.draw(this.ctx);
+    });
   }
+  /**
+   * @description what the user makes for their specific needs the button knows when its clicked you tell it what to do when it is
+   */
   updateButtons()
   {
     if(this.buttonArr[0].clicked === true)
@@ -103,6 +121,14 @@ class Game
       button.clicked = false;
     });
   }
-
+  /**
+   * @description what the user makes for their specific needs the slider knows when its clicked you tell it what to do when it is
+   */
+  updateSliders()
+  {
+    if(this.sliderArr[0].clicked === true){
+     this.audioManager.changeVolume(this.sliderArr[0].value);
+    }
+  }
 }
     

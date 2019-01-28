@@ -8,7 +8,8 @@
       "PLAYICON": "./Resources/Images/PlayButton.png",
       "PAUSEICON": "./Resources/Images/PauseButton.png",
       "STOPICON": "./Resources/Images/StopButton.png",
-      "MUTEICON": "./Resources/Images/MuteButton.png"
+      "MUTEICON": "./Resources/Images/MuteButton.png",
+      "SLIDERICON": "./Resources/Images/SliderIcon.png" 
   },
   "Audio":
   {
