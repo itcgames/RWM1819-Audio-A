@@ -24,7 +24,8 @@ class Game
     //buttons
     this.playButton;
     //images
-    this.playButtonImg = new Image(50,50);
+    this.wed;
+    this.playButtonImg =  new Image(50,50);
     this.playButtonImg.src = this.myAssets.data["Images"]["PLAYICON"];
     this.pauseButtonImg = new Image(50,50);
     this.pauseButtonImg.src = this.myAssets.data["Images"]["PAUSEICON"];
