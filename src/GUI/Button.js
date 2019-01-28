@@ -1,39 +1,33 @@
 class Button
 {
-  constructor(id, posX, posY, img, width, height, color)
+  constructor(img, id, posX, posY, width, height)
   {
-    var button = document.createElement("button");
-    button.style.width = width + 'px';
-    button.style.height = height + 'px';
-    button.style.left = posX + 'px';
-    button.style.top = posY + 'px';
-    button.style.background = color;
-    button.style.position='absolute';
-    button.innerHTML = img;
-    button.id = id;
-    document.body.appendChild(button);
+    this.img = img;
+    this.id = id;
+    this.x = posX;
+    this.y = posY;
+    this.width = width;
+    this.height = height;
+    this.clicked = false;
+    window.addEventListener("mousedown", this.mouseDown.bind(null, this));
   }
-  setPosition()
-  {
+  update(mouseX, mouseY){
 
   }
-  clicked(id, current)
-  {
-     if(id === "play")
-     {
-       gameNamespace.audioManager.playAudio(current);
-     }
-     if(id === "pause")
-     {
-       gameNamespace.audioManager.pauseAudio(current);
-     }
-     if(id === "stop")
-     {
-       gameNamespace.audioManager.stopAudio(current);
-     }
-     if(id === "mute")
-     {
-       gameNamespace.audioManager.muteAudio(current);
-     }
+  draw(ctx){
+    ctx.save()
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    ctx.restore();
   }
+  collisionWithMouse(mX,mY)
+  {
+    if(mX > this.x && mX < this.x + this.width && mY > this.y && mY < this.y + this.height){
+      this.clicked = true;
+    }
+  }
+  mouseDown(button, e)
+  {
+    button.collisionWithMouse(e.x,e.y);
+  }
+
 }

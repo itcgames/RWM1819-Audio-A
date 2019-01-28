@@ -12,7 +12,9 @@ class AssetLoader
   loadData()
   {
     this.data = JSON.parse(this.request.responseText);
+
     gameNamespace.dataLoaded = true;
+
     gameNamespace.game.initWorld();
   }
 

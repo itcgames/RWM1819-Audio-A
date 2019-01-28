@@ -4,7 +4,11 @@
       "RAPSONGIMG": "./Resources/Images/SugarHillGang.jpg",
       "ROCKSONGIMG": "./Resources/Images/RedHotChilliPeppers.jpg",
       "REGGAESONGIMG": "./Resources/Images/BobMarley.jpg",
-      "VOLUMEICON": "./Resources/Images/VolumeIcon.png"
+      "VOLUMEICON": "./Resources/Images/VolumeIcon.png",
+      "PLAYICON": "./Resources/Images/PlayButton.png",
+      "PAUSEICON": "./Resources/Images/PauseButton.png",
+      "STOPICON": "./Resources/Images/StopButton.png",
+      "MUTEICON": "./Resources/Images/MuteButton.png"
   },
   "Audio":
   {

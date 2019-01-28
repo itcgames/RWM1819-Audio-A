@@ -9,6 +9,12 @@ class AudioManager
 		this.gainNode = this.audioContext.createGain();
 		//stores value for previous volume
 		this.previousVol = 0.0;
+		//stores if the sound is pause or not
+		this.playing = false;
+		// time audio started
+		this.startedTime = 0;
+		// time audio paused
+		this.pausedTime = 0;
 		//if trying to play sound before loaded its added to queue
 		this.audioQueue = [];
 
@@ -44,15 +50,20 @@ class AudioManager
 		  var source = this.audioContext.createBufferSource();
 			this.source = source;
 		  source.buffer = audioBuffer;
-
-		  source.loop = loop;
+			// set loop
+			source.loop = loop;
+			//set playing to true
+			this.playing = true;
+			//time paused
+			this.pausedTime = 0;
 
 			//source.connect(this.audioContext.destination);
 			this.gainNode = this.audioContext.createGain();
 			source.connect(this.gainNode);
 		  this.gainNode.connect(this.audioContext.destination);
 			this.changeVolume(volume);
-		  source.start(0); // Play immediately.
+			source.start(0, this.offset); // Play immediately. at an offset 
+
 	  }
   }
 	changeVolume(volume)
@@ -72,23 +83,47 @@ class AudioManager
 	}
 	pauseAudio(current)
 	{
-		//currently unavailable
+		try{
+			if(this.playing === false){
+				this.source.resume();
+			}
+			else{
+				var elapsedTime = this.audioContext
+				this.source.suspend();
+			}
+		}
+		catch(e){
+			console.log(e);
+		}
 	}
 	stopAudio(current)
 	{
-		this.source.disconnect();
-	  this.stopped = true;
+		try
+		{
+			this.source.disconnect(current);
+		}
+		catch(e)
+		{
+				console.log(e);
+		}
+		
 	}
 	muteAudio(current)
 	{
-		if(this.gainNode.gain.value === 0.0)
-		{
-			this.gainNode.gain.value = this.previousVol;
+		try{
+			if(this.gainNode.gain.value === 0.0)
+			{
+				this.gainNode.gain.value = this.previousVol;
+			}
+			else
+			{
+				this.gainNode.gain.value = 0.0;
+			}
 		}
-		else
-		{
-			this.gainNode.gain.value = 0.0;
+		catch(e){
+			console.log(e);
 		}
+	
 	}
 		/**
 	Loads a sound file into an audio buffer
