@@ -128,7 +128,7 @@ class Game
     }
     else if(this.buttonArr[2].clicked === true)
     {
-      this.audioManager.stopAudio(this.currentlySelected,0);
+      this.audioManager.stopAudio(this.currentlySelected);
     }
     else if(this.buttonArr[3].clicked === true)
     {
