@@ -48,6 +48,8 @@ class Game
     this.audioManager.loadSoundFile("Rap", this.myAssets.data["Audio"]["RAPSONGAUDIO"]);
     //audio sprite sound
     this.audioManager.loadSoundFile("AudioSprite", this.myAssets.data["AudioSpriteExample"]["BUTTONSOUNDEFFECTS"]);
+    //event based system sound
+    this.audioManager.loadSoundFile("MouseClick", this.myAssets.data["Audio"]["MOUSECLICK"]);
     //GUI
     //Buttons img, id, posX, posY, width, height
     /** @type {Array<Button>} */
@@ -66,6 +68,9 @@ class Game
     /** @type {Array<Slider>} */
     this.sliderArr = [];
     this.sliderArr.push(new Slider(this.sliderImg, 100,500,300,30, this.sliderValueImg,225,500 -10,50,50));
+    //event based system example
+    this.audioManager.eventBasedAudio("mousedown", "MouseClick", false, this.sliderArr[0].value);
+    window.addEventListener("mousedown", this.onMouseDown.bind(this));
 
     this.gameLoop();
   }
@@ -112,8 +117,7 @@ class Game
   /**
    * @description what the user makes for their specific needs the button knows when its clicked you tell it what to do when it is
    */
-  updateButtons()
-  {
+  updateButtons(){
     if(this.buttonArr[0].clicked === true)
     {
       this.audioManager.playAudio(this.currentlySelected, false, this.sliderArr[0].value);
@@ -153,11 +157,17 @@ class Game
   /**
    * @description what the user makes for their specific needs the slider knows when its clicked you tell it what to do when it is
    */
-  updateSliders()
-  {
+  updateSliders(){
     if(this.sliderArr[0].clicked === true){
      this.audioManager.changeVolume(this.sliderArr[0].value);
     }
+  }
+  /**
+   * 
+   * @param {Event} e event triggered on mouse down 
+   */
+  onMouseDown(e){
+   gameNamespace.game.audioManager.playEvent("mousedown");
   }
 }
     

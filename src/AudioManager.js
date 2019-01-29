@@ -23,6 +23,8 @@ class AudioManager{
 		this.pausedTime = 0;
 		//if trying to play sound before loaded its added to queue
 		this.audioQueue = [];
+		//array of events
+		this.events = [];
 
 	}
 	/**
@@ -116,6 +118,30 @@ class AudioManager{
 			source.start(0, start); // Play immediately. at an offset 	
 			source.stop(this.audioContext.currentTime + (end-start));	
 		  }
+	}
+	/**
+	 * @description user creates an event that they want to play a sound when its triggered that event gets passed in here along with the sound they would like to play 
+	 * then when the event is triggered the sound is played
+	 * @param {String} event event to trigger on
+	 * @param {String} name of audio to play 
+	 * @param {Boolean} loop whether to loop audio or not 
+	 * @param {Float} volume to play audio at 
+	 */
+	eventBasedAudio(event, name, loop, volume)
+	{
+		this.events.push({type:event,title:name,repeat:loop,value:volume});
+	}
+	/**
+	 * @description when an event is triggered play the corresponding sound
+	 * @param {String} event type of event
+	 */
+	playEvent(event){
+		this.events.forEach(e =>{
+			if(e.type === event)
+			{
+				this.playAudio(e.title, e.repeat, e.value);
+			}
+		});
 	}
 	/**
 	 * @description function to change the volume value
