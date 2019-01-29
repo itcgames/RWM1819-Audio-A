@@ -17,13 +17,8 @@ class Game
   initWorld(){
 
     console.log("Initialising game world");
-    //mouse position
-    this.mouseX = -100;
-    this.mouseY = 100;
-
-    //buttons
-    this.playButton;
     //images
+    //buttons
     this.playButtonImg =  new Image(50,50);
     this.playButtonImg.src = this.myAssets.data["Images"]["PLAYICON"];
     this.pauseButtonImg = new Image(50,50);
@@ -33,14 +28,26 @@ class Game
     this.muteButtonImg = new Image(50,50);
     this.muteButtonImg.src = this.myAssets.data["Images"]["MUTEICON"];
 
+    //images for testing 
+    this.music1Img = new Image(50,50);
+    this.music1Img.src = this.myAssets.data["Images"]["REGGAESONGIMG"];
+    this.music2Img = new Image(50,50);
+    this.music2Img.src = this.myAssets.data["Images"]["ROCKSONGIMG"];
+    this.music3Img = new Image(50,50);
+    this.music3Img.src = this.myAssets.data["Images"]["RAPSONGIMG"];
+    this.audioSpriteImg = new Image(50,50);
+    this.audioSpriteImg.src = this.myAssets.data["Images"]["AUDIOSPRITEICON"];
+    //sliders
     this.sliderImg = new Image(50,50);
     this.sliderImg.src = this.myAssets.data["Images"]["SLIDERICON"];
     this.sliderValueImg = new Image(50,50);
     this.sliderValueImg.src = this.myAssets.data["Images"]["VOLUMEICON"];
     //sounds
+    this.audioManager.loadSoundFile("Reggae", this.myAssets.data["Audio"]["REGGAESONGAUDIO"]);
     this.audioManager.loadSoundFile("Rock", this.myAssets.data["Audio"]["ROCKSONGAUDIO"]);
     this.audioManager.loadSoundFile("Rap", this.myAssets.data["Audio"]["RAPSONGAUDIO"]);
-    this.audioManager.loadSoundFile("Reggae", this.myAssets.data["Audio"]["REGGAESONGAUDIO"]);
+    //audio sprite sound
+    this.audioManager.loadSoundFile("AudioSprite", this.myAssets.data["AudioSpriteExample"]["BUTTONSOUNDEFFECTS"]);
     //GUI
     //Buttons img, id, posX, posY, width, height
     /** @type {Array<Button>} */
@@ -49,6 +56,12 @@ class Game
     this.buttonArr.push(new Button(this.pauseButtonImg,300,700,50,50));
     this.buttonArr.push(new Button(this.stopButtonImg,500,700,50,50));
     this.buttonArr.push(new Button(this.muteButtonImg,700,700,50,50));
+
+    //testing buttons
+    this.buttonArr.push(new Button(this.music1Img,100,100,100,100));
+    this.buttonArr.push(new Button(this.music2Img,300,100,100,100));
+    this.buttonArr.push(new Button(this.music3Img,500,100,100,100));
+    this.buttonArr.push(new Button(this.audioSpriteImg, 800,200,50,50));
     //Sliders sliderImg, valueIconImg, id, posX, posY, width, height
     /** @type {Array<Slider>} */
     this.sliderArr = [];
@@ -103,19 +116,35 @@ class Game
   {
     if(this.buttonArr[0].clicked === true)
     {
-      this.audioManager.playAudio("Reggae", false, 1.0);
+      this.audioManager.playAudio(this.currentlySelected, false, this.sliderArr[0].value);
     }
     else if(this.buttonArr[1].clicked === true)
     {
-      this.audioManager.pauseAudio("Reggae");
+      this.audioManager.pauseAudio(this.currentlySelected);
     }
     else if(this.buttonArr[2].clicked === true)
     {
-      this.audioManager.stopAudio("Reggae");
+      this.audioManager.stopAudio(this.currentlySelected,0);
     }
     else if(this.buttonArr[3].clicked === true)
     {
-      this.audioManager.muteAudio("Reggae");
+      this.audioManager.muteAudio(this.currentlySelected);
+    }
+    else if(this.buttonArr[4].clicked === true)
+    {
+      this.currentlySelected = "Reggae";
+    }
+    else if(this.buttonArr[5].clicked === true)
+    {
+      this.currentlySelected = "Rock";
+    }
+    else if(this.buttonArr[6].clicked === true)
+    {
+      this.currentlySelected = "Rap";
+    }
+    else if(this.buttonArr[7].clicked === true)
+    {
+      this.audioManager.playFromAudioSprite("AudioSprite",false,this.sliderArr[0].value,this.myAssets.data["AudioSpriteExample"]["TIMES"][0]["start"],this.myAssets.data["AudioSpriteExample"]["TIMES"][0]["end"]);
     }
     this.buttonArr.forEach(button =>{
       button.clicked = false;

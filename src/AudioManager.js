@@ -52,13 +52,13 @@ class AudioManager{
 	    return;
 	  }
 		else{
-		  //retrieve the buffer we stored earlier
-		  var audioBuffer = this.audioBuffers[name];
+			//retrieve the buffer we stored earlier
+			var audioBuffer = this.audioBuffers[name];
 
-		  //create a buffer source - used to play once and then a new one must be made
-		  var source = this.audioContext.createBufferSource();
+			//create a buffer source - used to play once and then a new one must be made
+			var source = this.audioContext.createBufferSource();
 			this.source = source;
-		  source.buffer = audioBuffer;
+			source.buffer = audioBuffer;
 			// set loop
 			source.loop = loop;
 			//set playing to true
@@ -71,11 +71,51 @@ class AudioManager{
 			//source.connect(this.audioContext.destination);
 			this.gainNode = this.audioContext.createGain();
 			source.connect(this.gainNode);
-		  this.gainNode.connect(this.audioContext.destination);
+			this.gainNode.connect(this.audioContext.destination);
 			this.changeVolume(volume);
+			
 			source.start(0, this.offset); // Play immediately. at an offset 
-
+			
+			
 	  }
+	}
+	/**
+	 * @description plays sounds from an audio sprite which contains 1 sound file with many sounds
+	 * @param {String} name name of sound to be played 
+	 * @param {Boolean} loop decide to loop or not 
+	 * @param {Float} volume volume to play at
+	 * @param {Float} start time to start playing at 
+	 * @param {Float} end  time to stop playing at 
+	 */
+	playFromAudioSprite(name, loop, volume, start, end){
+		//if the sound doesnt exist yet
+		if(this.audioBuffers[name] == undefined){
+			console.log("Sound '"+name+"' doesn't exist or hasn't been loaded(adding to queue)")
+				this.audioQueue.push({name:name, loop:loop, volume:volume});
+			return;
+		  }
+		else{
+			//retrieve the buffer we stored earlier
+			var audioBuffer = this.audioBuffers[name];
+	
+			//create a buffer source - used to play once and then a new one must be made
+			var source = this.audioContext.createBufferSource();
+			this.source = source;
+			source.buffer = audioBuffer;
+			// set loop
+			source.loop = loop;
+
+			this.gainNode = this.audioContext.createGain();
+			source.connect(this.gainNode);
+			this.gainNode.connect(this.audioContext.destination);
+			this.changeVolume(volume);
+			//start at time specified when called 
+			//end after start-end seconds has passed
+			//if my audio starts at 5 seconds and ends at 8 seconds 8-5 = 3;
+			//the audio will play for 3 seconds starting from 5
+			source.start(0, start); // Play immediately. at an offset 	
+			source.stop(this.audioContext.currentTime + (end-start));	
+		  }
 	}
 	/**
 	 * @description function to change the volume value
@@ -117,7 +157,7 @@ class AudioManager{
 	 */
 	stopAudio(current){
 		try{
-			this.source.disconnect(current);
+			this.source.disconnect(current);			
 		}
 		catch(e){
 				console.log(e);
