@@ -148,7 +148,8 @@ class Game
     }
     else if(this.buttonArr[7].clicked === true)
     {
-      this.audioManager.playFromAudioSprite("AudioSprite",false,this.sliderArr[0].value,this.myAssets.data["AudioSpriteExample"]["TIMES"][0]["start"],this.myAssets.data["AudioSpriteExample"]["TIMES"][0]["end"]);
+      this.audioManager.playFromAudioSprite("AudioSprite",false,this.sliderArr[0].value,this.myAssets.data["AudioSpriteExample"]["TIMES"][0]["start"]
+                                            ,this.myAssets.data["AudioSpriteExample"]["TIMES"][0]["end"]);
     }
     this.buttonArr.forEach(button =>{
       button.clicked = false;
