@@ -1,0 +1,34 @@
+{
+  "Images":
+  {
+      "RAPSONGIMG": "./Resources/Images/SugarHillGang.jpg",
+      "ROCKSONGIMG": "./Resources/Images/RedHotChilliPeppers.jpg",
+      "REGGAESONGIMG": "./Resources/Images/BobMarley.jpg",
+      "VOLUMEICON": "./Resources/Images/VolumeIcon.png",
+      "PLAYICON": "./Resources/Images/PlayButton.png",
+      "PAUSEICON": "./Resources/Images/PauseButton.png",
+      "STOPICON": "./Resources/Images/StopButton.png",
+      "MUTEICON": "./Resources/Images/MuteButton.png",
+      "SLIDERICON": "./Resources/Images/SliderIcon.png", 
+      "AUDIOSPRITEICON": "./Resources/Images/AudioSprite.png"
+  },
+  "Audio":
+  {
+      "RAPSONGAUDIO": "./Resources/Audio/Music/RappersDelight.mp3",
+      "ROCKSONGAUDIO": "./Resources/Audio/Music/DaniCalifornia.mp3",
+      "REGGAESONGAUDIO": "./Resources/Audio/Music/Jamming.mp3",
+      "MOUSECLICK": "./Resources/Audio/MouseClick.mp3"
+  },
+  "AudioSpriteExample":
+  {
+      "BUTTONSOUNDEFFECTS": "./Resources/Audio/ButtonSoundEffects.mp3",
+      "TIMES":
+      [
+        {"start": 6, "end": 8},
+        {"start": 8, "end": 10},
+        {"start": 11, "end": 12} 
+      ]
+
+  }
+
+}

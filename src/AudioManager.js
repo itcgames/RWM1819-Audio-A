@@ -1,5 +1,5 @@
 //if i have time id like to make an audioManager use an object audioInstance
-
+'use strict';
 /**
  * @description Audio class used to control audio for a project
  */
