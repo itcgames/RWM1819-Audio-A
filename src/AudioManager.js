@@ -1,5 +1,5 @@
 //if i have time id like to make an audioManager use an object audioInstance
-
+'use strict';
 /**
  * @description Audio class used to control audio for a project
  */
@@ -10,7 +10,7 @@ class AudioManager{
 	constructor(){
 		//an object to hold a name for each sound and its associated buffer (memory holding the sound)
 		this.audioBuffers={}
-	  //Required for managing and for playing any sound.
+	    //Required for managing and for playing any sound.
 		this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
 		this.gainNode = this.audioContext.createGain();
 		//stores value for previous volume

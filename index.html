@@ -1,29 +1,30 @@
-<!DOCTYPE html>
-</html>
+<!doctype html>
+<html>
 <head>
-  <link rel="stylesheet" href="empty.css" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Mocha Spec Runner</title>
+  <link rel="stylesheet" href="bower_components/mocha/mocha.css">
 </head>
-
-<!--calls main when the page is loaded-->
-
-<body onload="main()">
-
-  <!-- Utility scripts  -->
-  <script src="src/utils/Canvas.js"></script>
-  <script src="src/utils/Color.js"></script>
-  <script src="src/utils/AssetLoader.js"></script>
+<body>
+  <div id="mocha"></div>
+  <script src="bower_components/mocha/mocha.js"></script>
+  <script>mocha.setup('')</script>
+  <script src="bower_components/chai/chai.js"></script>
+  <script>
+    var assert = chai.assert;
+    var expect = chai.expect;
+    var should = chai.should();
+  </script>
 
   <!-- Game scripts -->
-  <script src="src/main.js"></script>
-  <script src="src/Game.js"></script>
-  <script src="src/AudioManager.js"></script>
   <script src="src/GUI/Button.js"></script>
   <script src="src/GUI/Slider.js"></script>
 
   <!-- Test Scripts-->
-  <script src="spec/AudioManager.js"></script>
-  <script src="spec/Button.js"></script>
-  <script src="spec/Slider.js"></script>
-  
+  <script src="src/AudioManager.js"></script>
+  <script src="test/AudioManager.js"></script>
+
+  <script>mocha.run()</script>
 </body>
 </html>
